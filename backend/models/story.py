@@ -23,6 +23,6 @@ class StoryNode(Base):
     is_ending = Column(Boolean, default=False)
     is_winning_ending = Column(Boolean, default=False)
     options = Column(JSON, default=list)
-    story=relationship("Stroy", back_populates="nodes")
+    story=relationship("Story", back_populates="nodes")
     
     
