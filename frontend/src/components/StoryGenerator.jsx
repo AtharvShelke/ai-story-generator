@@ -32,7 +32,7 @@ const StoryGenerator = () => {
     setError(null);
     setTheme(theme);
     try {
-      const response = await axios.post(`${BACKEND_API_URL}/api/stories/create`, {theme});
+      const response = await axios.post(`${process.env.BACKEND_API_URL}/api/stories/create`, {theme});
       const {job_id, status} = response.data;
       setJobId(job_id);
       setJobStatus(status);
@@ -46,7 +46,7 @@ const StoryGenerator = () => {
 
   const pullJobStatus = async (id) => {
     try {
-      const response = await axios.get(`${BACKEND_API_URL}/api/jobs/${id}`);
+      const response = await axios.get(`${process.env.BACKEND_API_URL}/api/jobs/${id}`);
       const { status, story_id, error: jobError } = response.data;
       setJobStatus(status);
       if (status === "completed" && story_id) {
