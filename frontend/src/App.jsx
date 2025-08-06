@@ -12,6 +12,7 @@ const App = () => {
           <h1>
             Interactive AI Story Generator
           </h1>
+          <span>The backend is hosted on Render so there may be delay in loading the story (60 seconds or more depending on the inactivity)</span>
         </header>
         <main>
           <Routes>
