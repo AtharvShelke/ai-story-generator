@@ -11,11 +11,14 @@ export default defineConfig(({ command, mode }) => {
     server: {
       proxy: {
         "/api": {
-          target: isDebugFalse
-            ? undefined // no proxy when debug is false
-            : env.VITE_DEBUG === "true"
-              ? "http://localhost:8000"
-              : "https://ai-story-generator-9sp6.onrender.com",
+          // target: isDebugFalse
+          //   ? undefined // no proxy when debug is false
+          //   : env.VITE_DEBUG === "true"
+          //     ? "http://localhost:8000"
+          //     : "https://ai-story-generator-9sp6.onrender.com",
+          target: env.VITE_DEBUG === "true"
+            ? "http://localhost:8000"
+            : "https://ai-story-generator-9sp6.onrender.com",
           changeOrigin: true,
           secure: false
         }
