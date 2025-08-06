@@ -22,7 +22,7 @@ const StoryLoader = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${process.env.BACKEND_API_URL}/api/stories/${storyId}/complete`)
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/stories/${storyId}/complete`)
             setStory(response.data)
             setLoading(false)
             
