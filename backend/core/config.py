@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     API_PREFIX: str = "/api"
     DEBUG: bool = False
     DATABASE_URL: str = os.getenv("DATABASE_URL")
-    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173,http://127.0.0.1:5173"
+    ALLOWED_ORIGINS: str = os.getenv("ALLOWED_ORIGINS")
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY")
     
     @field_validator("ALLOWED_ORIGINS")

@@ -5,9 +5,9 @@ const ThemeInput = ({ onSubmit }) => {
   const [error, setError] = useState('');
 
   const themeExamples = [
-    "🚀 Space Odyssey", "🏴‍☠️ Pirate Adventure", "🧙‍♂️ Magical Quest", 
-    "🔮 Cyberpunk Future", "🏰 Medieval Fantasy", "🌊 Ocean Depths",
-    "🎭 Mystery Thriller", "🦸‍♂️ Superhero Origin", "🌙 Lunar Colony"
+    "Space Odyssey", "Pirate Adventure", "Magical Quest", 
+    "Cyberpunk Future", "Medieval Fantasy", "Ocean Depths",
+    "Mystery Thriller", "Superhero Origin", "Lunar Colony"
   ];
 
   const handleSubmit = (e) => {
@@ -57,6 +57,7 @@ const ThemeInput = ({ onSubmit }) => {
               className="example-btn"
               onClick={() => selectExample(example)}
               type="button"
+              style={{margin:"10px"}}
             >
               {example}
             </button>
