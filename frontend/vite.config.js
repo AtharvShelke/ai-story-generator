@@ -15,7 +15,7 @@ export default defineConfig(({ command, mode }) => {
             ? undefined // no proxy when debug is false
             : env.VITE_DEBUG === "true"
               ? "http://localhost:8000"
-              : "https://ai-story-generator-4yun.onrender.com",
+              : "https://ai-story-generator-9sp6.onrender.com",
           changeOrigin: true,
           secure: false
         }
