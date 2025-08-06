@@ -3,3 +3,6 @@ backend/.env
 frontend/.env
 .venv/
 backend/.venv/
+
+notes.txt
+backend/hello.txt

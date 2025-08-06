@@ -1,1 +1,99 @@
 uv add fastapi[all] langchain langchain-openai langchain-google-genai python-dotenv sqlalchemy uvicorn psycopg2-binary
+
+to run:
+    backend:
+        cd backend
+        uv run ./main.py
+    frontend:
+        cd frontend
+        npm run dev
+    
+Resume Bullet Points (with Keywords)
+--Developed a full-stack AI-powered story generation web application using React (Vite) and FastAPI (Python)
+--Implemented RESTful APIs for story and job management, integrating SQLite for persistent storage
+--Designed and built interactive UI components for story creation, loading, and gameplay
+--Utilized modular architecture for scalable backend and frontend codebases
+--Applied best practices in state management, asynchronous operations, and API integration
+--Technologies: React, JavaScript, FastAPI, Python, SQLite, REST API, Vite, CSS, Git
+
+Project Description
+AI Story Generator is a full-stack web application that empowers users to create and interact with AI-generated stories based on custom themes. The project features a modern React frontend and a FastAPI backend, with persistent storage via SQLite. Users can generate stories, play through interactive story games, and manage their story history. The application demonstrates expertise in full-stack development, RESTful API design, and the integration of AI-driven content generation.
+
+1. Steps to Deploy Online for Free
+Frontend (React/Vite)
+---Option 1: Vercel
+        Push your code to GitHub.
+        Go to Vercel and sign up.
+        Import your GitHub repo.
+        Set the project root to frontend/.
+        Vercel auto-detects Vite and deploys your site.
+        Get your public URL after deployment.
+---Option 2: Netlify
+        Push your code to GitHub.
+        Go to Netlify and sign up.
+        New site from Git, select your repo.
+        Set build command: npm run build, publish directory: dist
+        Deploy and get your public URL.
+Backend (FastAPI)
+--Option 1: Render (Free Tier)
+        Push your backend code to GitHub.
+        Go to Render and sign up.
+        Create a new "Web Service".
+        Connect your repo, set root to backend/.
+        Set build command: pip install -r requirements.txt
+        Set start command: uvicorn main:app --host 0.0.0.0 --port 10000
+        Add environment variables as needed.
+        Deploy and get your backend URL.
+--Option 2: Railway (Free Tier)
+        Push backend to GitHub.
+        Go to Railway and sign up.
+        New project → Deploy from GitHub.
+        Set up Python environment, install dependencies, set start command as above.
+        Deploy and get your backend URL.
+2. Steps to Switch from SQLite to MySQL or PostgreSQL
+General Steps
+--Install the Database Driver
+        For MySQL: pip install mysqlclient or pip install pymysql
+        For PostgreSQL: pip install psycopg2-binary
+--Update Database URL in Your Code
+        In backend/core/config.py or wherever your DB URL is set:
+        For MySQL:
+        SQLALCHEMY_DATABASE_URL = "mysql+pymysql://user:password@host:port/dbname"
+        For PostgreSQL:
+        SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://user:password@host:port/dbname"
+--Provision a Free Database
+        Railway and Render both offer free Postgres/MySQL databases.
+        Create a new database, get the connection string, and update your config.
+--Migrate Your Database
+        If using SQLAlchemy, use Alembic for migrations:
+        pip install alembic
+        Initialize: alembic init alembic
+        Edit alembic.ini and env.py to use your new DB URL.
+        Generate migration: alembic revision --autogenerate -m "init"
+        Apply migration: alembic upgrade head
+--Test Locally
+        Run your backend locally with the new DB to ensure everything works.
+3. Deployment Plan
+Step-by-Step Plan
+--Prepare Your Code
+        Ensure both frontend and backend work locally.
+        Update backend to use environment variables for DB connection.
+--Push to GitHub
+        Create a new repo or update your existing one.
+        Commit and push all code.
+--Deploy Backend
+        Choose Render or Railway.
+        Set up the backend as a web service.
+        If using MySQL/Postgres, provision the DB and update your config.
+        Set environment variables (DB URL, etc.).
+        Deploy and test the API endpoint.
+--Deploy Frontend
+        Choose Vercel or Netlify.
+        Set the API base URL in your frontend to point to your deployed backend.
+Deploy and test the frontend.
+--Connect Frontend and Backend
+        Ensure CORS is enabled in FastAPI (from fastapi.middleware.cors import CORSMiddleware).
+        Test the full flow: story generation, saving/loading, etc.
+--Go Live
+        Share your public URLs.
+        Optionally, set up a custom domain (free on Vercel/Netlify).
