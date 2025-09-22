@@ -26,30 +26,31 @@ const ThemeInput = ({ onSubmit }) => {
   };
 
   return (
-    <div className="theme-input-container glass-card">
-      <h2>🎮 Create Your Epic Adventure</h2>
-      <p>✨ Enter a theme and watch AI craft your personalized interactive story!</p>
-      
-      <form onSubmit={handleSubmit}>
+    <div className="theme-input-container panel section stack-lg">
+      <div className="stack-sm">
+        <h2>Create a new story</h2>
+        <p className="muted">Enter a theme or pick an example to get started.</p>
+      </div>
+      <form onSubmit={handleSubmit} className="stack-md">
         <div className="input-group">
           <input
             type="text"
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
-            placeholder="🎲 Enter your adventure theme..."
-            className={error ? "error" : ""}
+            placeholder="e.g. A detective in a city of dreams"
+            className={`input ${error ? 'input-error' : ''}`}
             maxLength={50}
           />
           {error && <span className="error-text">{error}</span>}
         </div>
-        
-        <button type="submit" className="generate-btn">
-          🚀 Generate Epic Story
-        </button>
+        <div className="cluster">
+          <button type="submit" className="button-primary">Generate story</button>
+          <button type="button" className="button-ghost" onClick={() => setTheme('')}>Clear</button>
+        </div>
       </form>
 
-      <div className="examples">
-        <h3>🎯 Quick Start Ideas:</h3>
+      <div className="examples stack-sm">
+        <h3>Examples</h3>
         <div className="example-grid">
           {themeExamples.map((example, index) => (
             <button
@@ -57,7 +58,7 @@ const ThemeInput = ({ onSubmit }) => {
               className="example-btn"
               onClick={() => selectExample(example)}
               type="button"
-              style={{margin:"10px"}}
+              style={{margin:"4px"}}
             >
               {example}
             </button>

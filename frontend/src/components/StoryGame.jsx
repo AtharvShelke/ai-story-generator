@@ -102,20 +102,14 @@ const StoryGame = ({ story, onNewStory, addXP, addAchievement }) => {
     };
 
     return (
-        <div className="story-game glass-card">
+        <div className="story-game panel section">
             <header className="story-header">
                 <div className="story-title-section">
-                    <h2>📖 {story.title}</h2>
+                    <h2>{story.title}</h2>
                     <div className="story-stats">
-                        <span className="stat-item">
-                            🎯 Choices: {choiceCount}
-                        </span>
-                        <span className="stat-item">
-                            📍 Progress: {Math.round(storyProgress)}%
-                        </span>
-                        <span className="stat-item">
-                            🗺️ Explored: {visitedNodes.size}/{getTotalNodes()}
-                        </span>
+                        <span className="stat-item">Choices: {choiceCount}</span>
+                        <span className="stat-item">Progress: {Math.round(storyProgress)}%</span>
+                        <span className="stat-item">Explored: {visitedNodes.size}/{getTotalNodes()}</span>
                     </div>
                 </div>
                 
@@ -139,39 +133,33 @@ const StoryGame = ({ story, onNewStory, addXP, addAchievement }) => {
                         
                         {isEnding ? (
                             <div className="story-ending">
-                                <div className="ending-animation">
-                                    {isWinningEnding ? "🎉" : "📖"}
-                                </div>
                                 <h3 className={`ending-title ${isWinningEnding ? 'victory' : 'normal'}`}>
-                                    {isWinningEnding ? "🏆 Victory Achieved!" : "📚 The End"}
+                                    {isWinningEnding ? "Victory" : "The End"}
                                 </h3>
                                 <p className="ending-message">
                                     {isWinningEnding 
-                                        ? "🌟 Congratulations! You've mastered this adventure and achieved the best possible outcome!" 
-                                        : "✨ Your journey has reached its conclusion. Every ending is a new beginning!"}
+                                        ? "Congratulations! You've reached the best outcome." 
+                                        : "Your journey has reached its conclusion."}
                                 </p>
                                 
                                 <div className="ending-stats">
                                     <div className="stat-card">
-                                        <span className="stat-icon">🎯</span>
                                         <span className="stat-value">{choiceCount}</span>
-                                        <span className="stat-label">Choices Made</span>
+                                        <span className="stat-label">Choices</span>
                                     </div>
                                     <div className="stat-card">
-                                        <span className="stat-icon">🗺️</span>
                                         <span className="stat-value">{visitedNodes.size}</span>
-                                        <span className="stat-label">Locations Visited</span>
+                                        <span className="stat-label">Nodes Visited</span>
                                     </div>
                                     <div className="stat-card">
-                                        <span className="stat-icon">⚡</span>
                                         <span className="stat-value">{isWinningEnding ? 50 : 25}+</span>
-                                        <span className="stat-label">XP Earned</span>
+                                        <span className="stat-label">XP</span>
                                     </div>
                                 </div>
                             </div>
                         ) : (
                             <div className="story-options">
-                                <h3 className="options-title">🤔 What will you do next?</h3>
+                                <h3 className="options-title">Next step</h3>
                                 <div className="options-list">
                                     {options.map((option, index) => (
                                         <button
@@ -190,13 +178,13 @@ const StoryGame = ({ story, onNewStory, addXP, addAchievement }) => {
                     </div>
                 )}
 
-                <div className="story-controls">
-                    <button onClick={restartStory} className="control-btn restart-btn">
-                        🔄 Restart Adventure
+                <div className="story-controls cluster" style={{justifyContent:'center'}}>
+                    <button onClick={restartStory} className="control-btn restart-btn button-ghost">
+                        Restart
                     </button>
                     {onNewStory && (
-                        <button onClick={onNewStory} className="control-btn new-story-btn">
-                            ✨ Create New Story
+                        <button onClick={onNewStory} className="control-btn new-story-btn button-primary">
+                            New story
                         </button>
                     )}
                 </div>

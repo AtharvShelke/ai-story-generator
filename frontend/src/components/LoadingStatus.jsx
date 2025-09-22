@@ -28,8 +28,8 @@ const LoadingStatus = ({ theme }) => {
   }, []);
 
   return (
-    <div className="loading-container glass-card">
-      <h2>🎮 Generating Your {theme} Adventure</h2>
+    <div className="loading-container panel section">
+      <h2>Generating your {theme} story</h2>
       
       <div className="loading-animation">
         <div className="spinner"></div>
@@ -40,21 +40,15 @@ const LoadingStatus = ({ theme }) => {
         </div>
       </div>
 
-      <div className="progress-container">
+      <div className="progress-container" aria-label="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.floor(progress)}>
         <div 
           className="progress-bar" 
           style={{ width: `${progress}%` }}
         ></div>
       </div>
       
-      <p className="loading-info">
-        {loadingTips[currentTip]}
-      </p>
-      
-      <div className="loading-stats">
-        <span>⚡ Power Level: {Math.floor(progress)}%</span>
-        <span>🎯 Status: Crafting Epic Tale</span>
-      </div>
+      <p className="center muted">{loadingTips[currentTip]}</p>
+      <p className="center muted">{Math.floor(progress)}% complete • Preparing content</p>
     </div>
   );
 };

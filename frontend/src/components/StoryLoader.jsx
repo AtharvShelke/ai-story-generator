@@ -63,7 +63,7 @@ const StoryLoader = ({ addXP, addAchievement }) => {
                 <LoadingStatus 
                     theme={"story"} 
                     progress={loadingProgress}
-                    message="🔍 Loading your epic adventure..."
+                    message="Loading your story..."
                 />
             </div>
         );
@@ -71,20 +71,17 @@ const StoryLoader = ({ addXP, addAchievement }) => {
 
     if (error) {
         return (
-            <div className="story-loader glass-card">
+            <div className="story-loader panel section">
                 <div className="error-container">
-                    <div className="error-icon">⚠️</div>
-                    <h3 className="error-title">Adventure Not Found!</h3>
-                    <p className="error-message">
-                        🔍 The story you're looking for seems to have vanished into the digital void...
-                    </p>
+                    <h3 className="error-title">Story not found</h3>
+                    <p className="error-message">We couldn't load that story.</p>
                     <p className="error-details">{error}</p>
                     <div className="error-actions">
-                        <button onClick={createNewStory} className="primary-btn">
-                            🚀 Create New Adventure
+                        <button onClick={createNewStory} className="button-primary">
+                            Create new story
                         </button>
-                        <button onClick={() => window.location.reload()} className="secondary-btn">
-                            🔄 Try Again
+                        <button onClick={() => window.location.reload()} className="button-ghost">
+                            Try again
                         </button>
                     </div>
                 </div>
@@ -94,10 +91,10 @@ const StoryLoader = ({ addXP, addAchievement }) => {
 
     if (story) {
         return (
-            <div className="story-loader glass-card">
+            <div className="story-loader panel section">
                 <div className="story-navigation">
-                    <button onClick={createNewStory} className="nav-btn">
-                        🏠 Create New Adventure
+                    <button onClick={createNewStory} className="nav-btn button-ghost">
+                        New story
                     </button>
                     <div className="story-info">
                         <span className="story-id">Story #{id?.slice(-6)}</span>

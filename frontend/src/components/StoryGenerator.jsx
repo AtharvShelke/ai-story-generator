@@ -133,17 +133,12 @@ const StoryGenerator = ({ addXP, addAchievement }) => {
   return (
     <div className='story-generator'>
       {error && (
-        <div className='error-message glass-card'>
-          <div className="error-icon">💥</div>
-          <h3>Oops! Something went wrong</h3>
-          <p>{error}</p>
-          <div className="error-actions">
-            <button onClick={reset} className="primary-btn">
-              🔄 Try Again
-            </button>
-            <button onClick={() => window.location.reload()} className="secondary-btn">
-              🏠 Refresh Page
-            </button>
+        <div className='error-message panel section'>
+          <h3>Something went wrong</h3>
+          <p className="muted">{error}</p>
+          <div className="error-actions cluster">
+            <button onClick={reset} className="button-primary">Try again</button>
+            <button onClick={() => window.location.reload()} className="button-ghost">Refresh</button>
           </div>
         </div>
       )}
@@ -154,7 +149,7 @@ const StoryGenerator = ({ addXP, addAchievement }) => {
       
       {loading && (
         <LoadingStatus 
-          theme={theme || "Epic"} 
+          theme={theme || "story"} 
           progress={generationProgress}
           message={generationStep}
           showStats={true}
