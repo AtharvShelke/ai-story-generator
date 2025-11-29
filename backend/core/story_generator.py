@@ -19,7 +19,7 @@ class StoryGenerator:
             os.environ["GEMINI_API_KEY"] = settings.GEMINI_API_KEY
             
         return ChatGoogleGenerativeAI(
-            model="gemini-2.5-flash",
+            model="gemini-3-pro-preview",
             google_api_key=settings.GEMINI_API_KEY,
             temperature=0.7
         )
