@@ -1,6 +1,6 @@
 from typing import List
+from pydantic import field_validator, Field
 from pydantic_settings import BaseSettings
-from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -16,17 +16,17 @@ class Settings(BaseSettings):
     DATABASE_PASSWORD: str
 
     # CORS
-    ALLOWED_ORIGINS: List[str] = []
+    ALLOWED_ORIGINS: str = ""
 
     # AI
     GEMINI_API_KEY: str
 
-    @field_validator("ALLOWED_ORIGINS", mode="before")
-    @classmethod
-    def parse_allowed_origins(cls, v):
-        if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",") if origin]
-        return v
+    @property
+    def allowed_origins_list(self) -> List[str]:
+        """Get allowed origins as a list."""
+        if not self.ALLOWED_ORIGINS:
+            return []
+        return [origin.strip() for origin in self.ALLOWED_ORIGINS.split(",") if origin.strip()]
 
     class Config:
         env_file = ".env"
