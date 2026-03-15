@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/useAuthStore';
-import axiosClient from '../api/axiosClient';
+import { useAuthStore } from '../store/useAuthStore.js';
+import axiosClient from '../api/axiosClient.js';
 
 const Navbar = () => {
     const { user, logout } = useAuthStore();

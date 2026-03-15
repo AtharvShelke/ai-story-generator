@@ -2,16 +2,16 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // Added for modern transitions
-import axiosClient from './api/axiosClient';
-import StoryLoader from './components/StoryLoader';
-import StoryGenerator from './components/StoryGenerator';
-import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import ProtectedRoute from './components/ProtectedRoute';
-import { useAuthStore } from './store/useAuthStore';
+import axiosClient from './api/axiosClient.js';
+import StoryLoader from './components/StoryLoader.jsx';
+import StoryGenerator from './components/StoryGenerator.jsx';
+import Navbar from './components/Navbar.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Home from './pages/Home.jsx';
+import Profile from './pages/Profile.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import { useAuthStore } from './store/useAuthStore.js';
 
 // Component to handle page transition logic
 const AnimatedRoutes = ({ addXP, addAchievement }) => {

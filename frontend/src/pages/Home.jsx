@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import axiosClient from '../api/axiosClient';
+import axiosClient from '../api/axiosClient.js';
 
 // --- Global Theme Constants ---
 const THEME = {

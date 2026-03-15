@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axiosClient from '../api/axiosClient';
-import { useAuthStore } from '../store/useAuthStore';
+import axiosClient from '../api/axiosClient.js';
+import { useAuthStore } from '../store/useAuthStore.js';
 
 const Login = () => {
     const [username, setUsername] = useState('');
