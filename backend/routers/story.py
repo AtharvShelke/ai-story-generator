@@ -12,6 +12,10 @@ from schemas.job import StoryJobResponse
 from core.story_generator import StoryGenerator
 
 
+from core.dependencies import get_current_user_optional, get_current_user
+from models.user import User
+from typing import List
+
 router = APIRouter(
     prefix="/stories",
     tags=["stories"]
@@ -28,8 +32,8 @@ def create_story(
     background_tasks:BackgroundTasks,
     response:Response,
     session_id:str = Depends(get_session_id),
-    db:Session = Depends(get_db)
-    
+    db:Session = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional)
 ):
     response.set_cookie(key="session_id", value=session_id, httponly=True)
     job_id = str(uuid.uuid4())
@@ -42,17 +46,20 @@ def create_story(
     db.add(job)
     db.commit()
     
+    user_id = current_user.id if current_user else None
+
     background_tasks.add_task(
         generate_story_task,
         job_id=job_id,
         theme=request.theme,
-        session_id=session_id
+        session_id=session_id,
+        user_id=user_id
     )
     
     return job
 
-def generate_story_task(job_id:str, theme:str, session_id:str):
-    db = SessionLocal()
+def generate_story_task(job_id:str, theme:str, session_id:str, user_id: Optional[int] = None):
+    db: Session = SessionLocal()
     try:
         job = db.query(StoryJob).filter(StoryJob.job_id == job_id).first()
         if not job:
@@ -61,8 +68,13 @@ def generate_story_task(job_id:str, theme:str, session_id:str):
             job.status = "processing"
             db.commit()
             
-            story = StoryGenerator.generate_story(db, session_id, theme)
+            story = StoryGenerator.generate_story(db, session_id, theme, user_id)
             
+            if user_id:
+                user = db.query(User).filter(User.id == user_id).first()
+                if user:
+                    user.points += 10
+                    db.commit()
             
             job.story_id = story.id
             job.status = "completed"
@@ -75,7 +87,18 @@ def generate_story_task(job_id:str, theme:str, session_id:str):
             db.commit()
     finally:
         db.close()
-    
+        
+@router.get("/me", response_model=List[CompleteStoryResponse])
+def get_my_stories(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    stories = db.query(Story).filter(Story.user_id == current_user.id).all()
+    complete_stories = []
+    for story in stories:
+        try:
+            complete_stories.append(build_complete_story_tree(db, story))
+        except Exception:
+            pass
+    return complete_stories
+
 @router.get("/{story_id}/complete", response_model=CompleteStoryResponse)
 def get_complete_story(story_id: int, db:Session = Depends(get_db)):
     story = db.query(Story).filter(Story.id == story_id).first()

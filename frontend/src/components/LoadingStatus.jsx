@@ -1,54 +1,108 @@
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-const LoadingStatus = ({ theme }) => {
-  const [progress, setProgress] = useState(0);
-  const [currentTip, setCurrentTip] = useState(0);
-
-  const loadingTips = [
-    "🎨 AI is painting your story world...",
-    "📚 Crafting epic plot twists...",
-    "🎭 Creating memorable characters...",
-    "🗺️ Building your adventure map...",
-    "✨ Adding magical elements...",
-  ];
-
-  useEffect(() => {
-    const progressInterval = setInterval(() => {
-      setProgress(prev => Math.min(prev + Math.random() * 15, 95));
-    }, 800);
-
-    const tipInterval = setInterval(() => {
-      setCurrentTip(prev => (prev + 1) % loadingTips.length);
-    }, 2000);
-
-    return () => {
-      clearInterval(progressInterval);
-      clearInterval(tipInterval);
-    };
-  }, []);
+const LoadingStatus = ({ theme, progress, message }) => {
+  // Array for the decorative neural grid animation
+  const dots = Array.from({ length: 9 });
 
   return (
-    <div className="loading-container panel section">
-      <h2>Generating your {theme} story</h2>
+    <div className="loading-status-container" style={{ padding: '2rem 0' }}>
       
-      <div className="loading-animation">
-        <div className="spinner"></div>
-        <div className="loading-rings">
-          <div className="ring ring-1"></div>
-          <div className="ring ring-2"></div>
-          <div className="ring ring-3"></div>
+      {/* --- NEURAL VISUALIZER --- */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(3, 1fr)', 
+        gap: '12px', 
+        width: '60px', 
+        margin: '0 auto 3rem' 
+      }}>
+        {dots.map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{ 
+              opacity: [0.2, 1, 0.2],
+              scale: [1, 1.2, 1],
+              backgroundColor: ['#222', '#CCFF00', '#222'] 
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              delay: i * 0.1,
+              ease: "easeInOut" 
+            }}
+            style={{ 
+              width: '8px', 
+              height: '8px', 
+              borderRadius: '2px',
+              boxShadow: '0 0 10px rgba(204, 255, 0, 0)'
+            }}
+          />
+        ))}
+      </div>
+
+      {/* --- CORE DATA READOUT --- */}
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 style={{ 
+          fontSize: '1.5rem', 
+          marginBottom: '0.5rem', 
+          textTransform: 'uppercase', 
+          letterSpacing: '-0.02em' 
+        }}>
+          Synthesizing <span style={{ color: 'var(--brand)' }}>{theme}</span>
+        </h2>
+        
+        {/* Syncing the actual message from StoryGenerator */}
+        <div className="mono" style={{ 
+          fontSize: '0.8rem', 
+          color: 'var(--brand)', 
+          letterSpacing: '0.1em' 
+        }}>
+          &gt; {message}
         </div>
       </div>
 
-      <div className="progress-container" aria-label="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.floor(progress)}>
-        <div 
-          className="progress-bar" 
-          style={{ width: `${progress}%` }}
-        ></div>
+      {/* --- PERCENTAGE READOUT --- */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'baseline', 
+        gap: '8px',
+        marginTop: '1rem' 
+      }}>
+        <span className="mono" style={{ 
+          fontSize: '4rem', 
+          fontWeight: '800', 
+          lineHeight: 1,
+          color: 'var(--text)'
+        }}>
+          {Math.floor(progress)}
+        </span>
+        <span className="mono" style={{ 
+          fontSize: '1.2rem', 
+          color: 'var(--muted)',
+          fontWeight: '400'
+        }}>
+          %_LOADED
+        </span>
       </div>
-      
-      <p className="center muted">{loadingTips[currentTip]}</p>
-      <p className="center muted">{Math.floor(progress)}% complete • Preparing content</p>
+
+      {/* --- SUB-METADATA --- */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        gap: '24px', 
+        marginTop: '2rem' 
+      }}>
+        <div style={{ textAlign: 'left' }}>
+          <p className="mono" style={{ fontSize: '0.6rem', color: 'var(--muted)', marginBottom: '4px' }}>UPLINK_STABILITY</p>
+          <p className="mono" style={{ fontSize: '0.75rem', color: 'var(--text)' }}>STABLE_99.9%</p>
+        </div>
+        <div style={{ width: '1px', background: 'var(--border)' }}></div>
+        <div style={{ textAlign: 'left' }}>
+          <p className="mono" style={{ fontSize: '0.6rem', color: 'var(--muted)', marginBottom: '4px' }}>CORE_TEMP</p>
+          <p className="mono" style={{ fontSize: '0.75rem', color: 'var(--text)' }}>OPTIMAL</p>
+        </div>
+      </div>
+
     </div>
   );
 };

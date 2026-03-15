@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axiosClient from '../api/axiosClient.js';
 import LoadingStatus from "./LoadingStatus.jsx";
 import StoryGame from "./StoryGame.jsx";
-import { API_BASE_URL } from '../utils.js';
+
 
 const StoryLoader = ({ addXP, addAchievement }) => {
     const { id } = useParams();
@@ -28,7 +28,7 @@ const StoryLoader = ({ addXP, addAchievement }) => {
                 setLoadingProgress(prev => Math.min(prev + 10, 90));
             }, 200);
 
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_API_URL}/api/stories/${storyId}/complete`);
+            const response = await axiosClient.get(`/stories/${storyId}/complete`);
             
             clearInterval(progressInterval);
             setLoadingProgress(100);

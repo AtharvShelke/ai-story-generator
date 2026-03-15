@@ -25,7 +25,7 @@ class StoryGenerator:
         )
     
     @classmethod
-    def generate_story(cls, db:Session, session_id: str, theme:str = "fantasy") -> Story:
+    def generate_story(cls, db:Session, session_id: str, theme:str = "fantasy", user_id: int | None = None) -> Story:
         llm = cls._get_llm()
         story_parser = PydanticOutputParser(pydantic_object=StoryLLMResponse)
         prompt = ChatPromptTemplate.from_messages([
@@ -46,7 +46,7 @@ class StoryGenerator:
             
         story_structure = story_parser.parse(response_text)
         
-        story_db = Story(title=story_structure.title, session_id=session_id)
+        story_db = Story(title=story_structure.title, session_id=session_id, user_id=user_id)
         db.add(story_db)
         db.flush()
         

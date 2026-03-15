@@ -31,8 +31,10 @@ class CreateStoryRequest(BaseModel):
 class CompleteStoryResponse(StoryBase):
     id:int
     created_at:datetime
+    user_id:Optional[int] = None
     root_node:CompleteStoryNodeResponse
     all_nodes:Dict[int, CompleteStoryNodeResponse]
+    user:Optional[dict] = None # Will contain basic author info via relationships
     
-    class Config:
+    class Config(StoryBase.Config):
         from_attributes = True
